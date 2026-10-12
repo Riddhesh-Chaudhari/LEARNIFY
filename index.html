@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learnify — English Learning App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAV ===== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">Learnify</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-item active" data-page="home"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></a></li>
+      <li><a href="#" class="nav-item" data-page="vocab-quiz"><span class="nav-icon">✍️</span><span class="nav-label">Vocab Quiz</span></a></li>
+      <li><a href="#" class="nav-item" data-page="speaking"><span class="nav-icon">🎤</span><span class="nav-label">Speaking Test</span></a></li>
+      <li><a href="#" class="nav-item" data-page="grammar"><span class="nav-icon">📝</span><span class="nav-label">Grammar Quiz</span></a></li>
+      <li><a href="#" class="nav-item" data-page="wordbook"><span class="nav-icon">📖</span><span class="nav-label">Word Book</span></a></li>
+      <li><a href="#" class="nav-item" data-page="progress"><span class="nav-icon">📊</span><span class="nav-label">My Progress</span></a></li>
+      <li><a href="#" class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span><span class="nav-label">Settings</span></a></li>
+    </ul>
+    <div class="sidebar-level-badge">
+      <span class="level-dot"></span>
+      <span id="sidebar-level-text">Beginner</span>
+    </div>
+  </nav>
+
+  <!-- ===== HAMBURGER TOGGLE ===== -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="main-content">
+
+    <!-- ====== HOME PAGE ====== -->
+    <section class="page active" id="page-home">
+      <div class="page-header">
+        <h1>Welcome back! 👋</h1>
+        <p class="subtitle">Keep up the great work. Let's learn something new today.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">🔥</span>
+          <div>
+            <div class="stat-value" id="stat-streak">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🏆</span>
+          <div>
+            <div class="stat-value" id="stat-score">0</div>
+            <div class="stat-label">Total XP</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📚</span>
+          <div>
+            <div class="stat-value" id="stat-words">0</div>
+            <div class="stat-label">Words Learned</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🎯</span>
+          <div>
+            <div class="stat-value" id="stat-accuracy">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Quick Start</h2>
+      <div class="quickstart-grid">
+        <button class="quickstart-card" data-goto="vocab-quiz">
+          <div class="qs-icon">✍️</div>
+          <div class="qs-title">Vocabulary Quiz</div>
+          <div class="qs-desc">Test & expand your word power with AI-powered questions</div>
+        </button>
+        <button class="quickstart-card" data-goto="speaking">
+          <div class="qs-icon">🎤</div>
+          <div class="qs-title">Speaking Test</div>
+          <div class="qs-desc">Practice pronunciation & get real-time AI feedback</div>
+        </button>
+        <button class="quickstart-card" data-goto="grammar">
+          <div class="qs-icon">📝</div>
+          <div class="qs-title">Grammar Quiz</div>
+          <div class="qs-desc">Master grammar rules from basic to advanced</div>
+        </button>
+        <button class="quickstart-card" data-goto="wordbook">
+          <div class="qs-icon">📖</div>
+          <div class="qs-title">Word Book</div>
+          <div class="qs-desc">Review all the new words you've learned with definitions</div>
+        </button>
+      </div>
+
+      <div class="daily-tip-card">
+        <div class="tip-header"><span>💡</span> Word of the Day</div>
+        <div class="tip-word" id="wotd-word">Loading...</div>
+        <div class="tip-pronunciation" id="wotd-pronunciation"></div>
+        <div class="tip-definition" id="wotd-definition">Fetching your word of the day...</div>
+        <div class="tip-example" id="wotd-example"></div>
+      </div>
+    </section>
+
+    <!-- ====== VOCAB QUIZ PAGE ====== -->
+    <section class="page" id="page-vocab-quiz">
+      <div class="page-header">
+        <h1>Vocabulary Quiz ✍️</h1>
+        <p class="subtitle">Build your vocabulary with AI-generated questions</p>
+      </div>
+
+      <!-- Quiz Setup -->
+      <div id="vq-setup">
+        <div class="setup-card">
+          <h3>Choose Difficulty</h3>
+          <div class="difficulty-btns">
+            <button class="diff-btn active" data-diff="beginner">🌱 Beginner</button>
+            <button class="diff-btn" data-diff="elementary">📗 Elementary</button>
+            <button class="diff-btn" data-diff="intermediate">⭐ Intermediate</button>
+          </div>
+          <h3 style="margin-top:1.5rem">Number of Questions</h3>
+          <div class="difficulty-btns">
+            <button class="num-btn active" data-num="5">5</button>
+            <button class="num-btn" data-num="10">10</button>
+            <button class="num-btn" data-num="15">15</button>
+          </div>
+          <button class="btn-primary" id="start-vocab-quiz" style="margin-top:2rem;width:100%">Start Quiz →</button>
+        </div>
+      </div>
+
+      <!-- Quiz Active -->
+      <div id="vq-active" style="display:none">
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="vq-progress-fill"></div>
+        </div>
+        <div class="quiz-meta">
+          <span id="vq-question-num">Q 1 / 5</span>
+          <span id="vq-score-display">Score: 0</span>
+        </div>
+        <div class="question-card" id="vq-question-card">
+          <div class="question-loading" id="vq-loading">
+            <div class="spinner"></div>
+            <p>Generating question with AI...</p>
+          </div>
+          <div id="vq-question-content" style="display:none">
+            <div class="question-text" id="vq-question-text"></div>
+            <div class="options-grid" id="vq-options"></div>
+            <div class="feedback-box" id="vq-feedback" style="display:none"></div>
+            <button class="btn-primary" id="vq-next-btn" style="display:none;margin-top:1rem">Next Question →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Results -->
+      <div id="vq-results" style="display:none">
+        <div class="results-card">
+          <div class="result-emoji" id="vq-result-emoji">🎉</div>
+          <h2 id="vq-result-title">Quiz Complete!</h2>
+          <div class="result-score" id="vq-result-score"></div>
+          <div class="result-breakdown" id="vq-result-breakdown"></div>
+          <div class="new-words-section" id="vq-new-words-section">
+            <h3>📚 New Words Learned Today</h3>
+            <div id="vq-new-words-list"></div>
+          </div>
+          <button class="btn-primary" id="vq-try-again" style="margin-top:1.5rem">Try Again</button>
+          <button class="btn-secondary" id="vq-goto-wordbook" style="margin-top:0.75rem">View Word Book →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== SPEAKING TEST PAGE ====== -->
+    <section class="page" id="page-speaking">
+      <div class="page-header">
+        <h1>Speaking Test 🎤</h1>
+        <p class="subtitle">Practice your pronunciation and fluency with AI feedback</p>
+      </div>
+
+      <div id="sp-setup">
+        <div class="setup-card">
+          <h3>Choose Topic</h3>
+          <div class="topic-grid">
+            <button class="topic-btn active" data-topic="daily-life">☀️ Daily Life</button>
+            <button class="topic-btn" data-topic="weather">🌦️ Weather</button>
+            <button class="topic-btn" data-topic="food">🍕 Food</button>
+            <button class="topic-btn" data-topic="travel">✈️ Travel</button>
+            <button class="topic-btn" data-topic="hobbies">🎨 Hobbies</button>
+            <button class="topic-btn" data-topic="work">💼 Work</button>
+          </div>
+          <button class="btn-primary" id="start-speaking" style="margin-top:2rem;width:100%">Start Speaking Test →</button>
+        </div>
+      </div>
+
+      <div id="sp-active" style="display:none">
+        <div class="speaking-card">
+          <div id="sp-prompt-loading" class="question-loading">
+            <div class="spinner"></div>
+            <p>Generating speaking prompt...</p>
+          </div>
+          <div id="sp-prompt-content" style="display:none">
+            <div class="speaking-prompt-label">Speak about this topic:</div>
+            <div class="speaking-prompt-text" id="sp-prompt-text"></div>
+            <div class="speaking-tips" id="sp-tips"></div>
+
+            <div class="recording-area">
+              <div class="mic-animation" id="mic-animation">
+                <button class="mic-btn" id="mic-btn" title="Click to start recording">
+                  <span class="mic-icon">🎤</span>
+                </button>
+                <div class="mic-rings" id="mic-rings"></div>
+              </div>
+              <div class="recording-status" id="recording-status">Click the mic to start recording</div>
+              <div class="transcript-box" id="sp-transcript" style="display:none">
+                <strong>Your speech:</strong>
+                <p id="sp-transcript-text"></p>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="sp-feedback" style="display:none"></div>
+            <button class="btn-primary" id="sp-analyze-btn" style="display:none;margin-top:1rem">Analyze My Speech →</button>
+            <button class="btn-secondary" id="sp-new-prompt" style="margin-top:0.75rem">Get New Prompt</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== GRAMMAR QUIZ PAGE ====== -->
+    <section class="page" id="page-grammar">
+      <div class="page-header">
+        <h1>Grammar Quiz 📝</h1>
+        <p class="subtitle">Master English grammar step by step</p>
+      </div>
+
+      <div id="gq-setup">
+        <div class="setup-card">
+          <h3>Choose Topic</h3>
+          <div class="topic-grid">
+            <button class="grammar-topic-btn active" data-gtopic="tenses">⏰ Tenses</button>
+            <button class="grammar-topic-btn" data-gtopic="articles">📌 Articles</button>
+            <button class="grammar-topic-btn" data-gtopic="prepositions">🔗 Prepositions</button>
+            <button class="grammar-topic-btn" data-gtopic="pronouns">👤 Pronouns</button>
+            <button class="grammar-topic-btn" data-gtopic="adjectives">🌈 Adjectives</button>
+            <button class="grammar-topic-btn" data-gtopic="conjunctions">🔄 Conjunctions</button>
+          </div>
+          <h3 style="margin-top:1.5rem">Number of Questions</h3>
+          <div class="difficulty-btns">
+            <button class="gnum-btn active" data-gnum="5">5</button>
+            <button class="gnum-btn" data-gnum="10">10</button>
+          </div>
+          <button class="btn-primary" id="start-grammar-quiz" style="margin-top:2rem;width:100%">Start Grammar Quiz →</button>
+        </div>
+      </div>
+
+      <div id="gq-active" style="display:none">
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="gq-progress-fill"></div>
+        </div>
+        <div class="quiz-meta">
+          <span id="gq-question-num">Q 1 / 5</span>
+          <span id="gq-score-display">Score: 0</span>
+        </div>
+        <div class="question-card" id="gq-question-card">
+          <div class="question-loading" id="gq-loading">
+            <div class="spinner"></div>
+            <p>Generating question with AI...</p>
+          </div>
+          <div id="gq-question-content" style="display:none">
+            <div class="question-text" id="gq-question-text"></div>
+            <div class="options-grid" id="gq-options"></div>
+            <div class="feedback-box" id="gq-feedback" style="display:none"></div>
+            <button class="btn-primary" id="gq-next-btn" style="display:none;margin-top:1rem">Next Question →</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gq-results" style="display:none">
+        <div class="results-card">
+          <div class="result-emoji" id="gq-result-emoji">🎉</div>
+          <h2 id="gq-result-title">Quiz Complete!</h2>
+          <div class="result-score" id="gq-result-score"></div>
+          <div class="result-breakdown" id="gq-result-breakdown"></div>
+          <button class="btn-primary" id="gq-try-again" style="margin-top:1.5rem">Try Again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== WORD BOOK PAGE ====== -->
+    <section class="page" id="page-wordbook">
+      <div class="page-header">
+        <h1>Word Book 📖</h1>
+        <p class="subtitle">All the new words you've encountered — your personal dictionary</p>
+      </div>
+      <div class="wordbook-controls">
+        <input type="text" id="wb-search" placeholder="Search words..." class="search-input" />
+        <button class="btn-secondary" id="wb-clear" style="white-space:nowrap">Clear All</button>
+      </div>
+      <div id="wb-empty" class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h3>No words yet!</h3>
+        <p>Take a quiz to start collecting vocabulary words.</p>
+        <button class="btn-primary" data-goto="vocab-quiz">Start a Quiz →</button>
+      </div>
+      <div id="wb-list" class="wordbook-list"></div>
+    </section>
+
+    <!-- ====== PROGRESS PAGE ====== -->
+    <section class="page" id="page-progress">
+      <div class="page-header">
+        <h1>My Progress 📊</h1>
+        <p class="subtitle">Track your learning journey</p>
+      </div>
+      <div class="progress-grid">
+        <div class="progress-card">
+          <h3>Level Progress</h3>
+          <div class="level-info">
+            <span class="current-level" id="pr-current-level">Beginner</span>
+            <span class="arrow">→</span>
+            <span class="next-level">Elementary</span>
+          </div>
+          <div class="xp-bar-container">
+            <div class="xp-bar-fill" id="pr-xp-fill"></div>
+          </div>
+          <div class="xp-label" id="pr-xp-label">0 / 500 XP to next level</div>
+        </div>
+        <div class="progress-card">
+          <h3>Quiz Performance</h3>
+          <div class="perf-stats">
+            <div class="perf-item"><span class="perf-num" id="pr-total-quizzes">0</span><span class="perf-label">Quizzes Taken</span></div>
+            <div class="perf-item"><span class="perf-num" id="pr-correct">0</span><span class="perf-label">Correct Answers</span></div>
+            <div class="perf-item"><span class="perf-num" id="pr-accuracy">0%</span><span class="perf-label">Overall Accuracy</span></div>
+          </div>
+        </div>
+        <div class="progress-card full-width">
+          <h3>Skills Breakdown</h3>
+          <div class="skills-breakdown">
+            <div class="skill-row"><span class="skill-name">📝 Vocabulary</span><div class="skill-bar-wrap"><div class="skill-bar-fill" id="sk-vocab"></div></div><span class="skill-pct" id="sk-vocab-pct">0%</span></div>
+            <div class="skill-row"><span class="skill-name">📖 Grammar</span><div class="skill-bar-wrap"><div class="skill-bar-fill" id="sk-grammar"></div></div><span class="skill-pct" id="sk-grammar-pct">0%</span></div>
+            <div class="skill-row"><span class="skill-name">🎤 Speaking</span><div class="skill-bar-wrap"><div class="skill-bar-fill" id="sk-speaking"></div></div><span class="skill-pct" id="sk-speaking-pct">0%</span></div>
+          </div>
+        </div>
+        <div class="progress-card full-width">
+          <h3>Recent Activity</h3>
+          <div id="pr-activity-list" class="activity-list">
+            <p class="empty-activity">No activity yet. Start a quiz!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== SETTINGS PAGE ====== -->
+    <section class="page" id="page-settings">
+      <div class="page-header">
+        <h1>Settings ⚙️</h1>
+        <p class="subtitle">Configure your learning experience</p>
+      </div>
+      <div class="settings-card">
+        <div class="settings-group">
+          <label class="settings-label">🔑 Gemini API Key</label>
+          <div class="api-key-row">
+            <input type="password" id="api-key-input" placeholder="Enter your Gemini API key..." class="settings-input" />
+            <button class="btn-primary" id="save-api-key">Save</button>
+          </div>
+          <p class="settings-hint">Get your free API key at <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></p>
+        </div>
+        <div class="settings-group">
+          <label class="settings-label">👤 Your Name</label>
+          <input type="text" id="user-name-input" placeholder="Enter your name..." class="settings-input" />
+          <button class="btn-secondary" id="save-name" style="margin-top:0.75rem">Save Name</button>
+        </div>
+        <div class="settings-group">
+          <label class="settings-label">🎯 Daily Goal (minutes)</label>
+          <div class="difficulty-btns">
+            <button class="goal-btn active" data-goal="10">10 min</button>
+            <button class="goal-btn" data-goal="20">20 min</button>
+            <button class="goal-btn" data-goal="30">30 min</button>
+          </div>
+        </div>
+        <div class="settings-group danger-zone">
+          <label class="settings-label" style="color:#ef4444">⚠️ Danger Zone</label>
+          <button class="btn-danger" id="reset-progress">Reset All Progress</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== API KEY MODAL ===== -->
+  <div class="modal-overlay" id="api-key-modal">
+    <div class="modal-box">
+      <div class="modal-icon">🔑</div>
+      <h2>Set Up Your API Key</h2>
+      <p>Learnify uses the Gemini AI to generate personalized questions and feedback. You'll need a free API key to get started.</p>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank" class="btn-link">Get free API key →</a>
+      <div class="api-key-row" style="margin-top:1rem">
+        <input type="password" id="modal-api-key" placeholder="Paste your API key here..." class="settings-input" />
+        <button class="btn-primary" id="modal-save-key">Save & Start</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
